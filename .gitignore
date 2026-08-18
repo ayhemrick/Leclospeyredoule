@@ -44,3 +44,6 @@ pgdata/
 # Vite local overrides
 frontend/.env.local
 frontend/.playwright-cache/
+
+# TypeScript incremental build metadata
+*.tsbuildinfo
