@@ -1,0 +1,123 @@
+[project]
+name = "peyredoule-api"
+version = "0.1.0"
+description = "Clos Peyredoule - visitor site API with rotating QR access control"
+readme = "README.md"
+requires-python = ">=3.14"
+license = { text = "MIT" }
+
+dependencies = [
+    "fastapi>=0.141.1,<0.142",
+    "uvicorn[standard]>=0.52.3,<0.53",
+    "sqlalchemy[asyncio]>=2.0.52,<2.1",
+    "asyncpg>=0.31.0,<0.32",
+    "alembic>=1.19.1,<1.20",
+    "pydantic>=2.13.4,<3",
+    "pydantic-settings>=2.15.0,<3",
+    "email-validator>=2.3.0,<3",
+    "argon2-cffi>=25.1.0,<26",
+    "pyjwt>=2.13.0,<3",
+    "segno>=1.6.6,<2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1,<10",
+    "pytest-asyncio>=1.4.0,<2",
+    "pytest-cov>=7.0.0",
+    "httpx>=0.28.1,<0.29",
+    "ruff>=0.16.3,<0.17",
+    "mypy>=2.3.1,<3",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+# ---------------------------------------------------------------------------
+# Lint / format
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+src = ["app", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",      # pycodestyle
+    "F",           # pyflakes
+    "I",           # isort
+    "N",           # pep8-naming
+    "UP",          # pyupgrade
+    "B",           # flake8-bugbear
+    "C4",          # comprehensions
+    "DTZ",         # timezone-aware datetimes
+    "S",           # bandit security
+    "A",           # builtin shadowing
+    "RET",         # return simplification
+    "SIM",         # simplify
+    "PTH",         # use pathlib
+    "ASYNC",       # async pitfalls
+    "RUF",         # ruff-specific
+    "D",           # docstrings
+]
+ignore = [
+    "D203",   # conflicts with D211
+    "D213",   # conflicts with D212
+    "D107",   # __init__ docstring not required
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Asserts, literal test credentials and terse docstrings are fine in tests.
+"tests/*" = ["S101", "S105", "S106", "D100", "D103", "E402"]
+"alembic/*" = ["D", "N", "S", "RUF"]        # generated migration scaffolding
+"app/core/config.py" = ["S105"]             # non-secret default field names
+
+[tool.ruff.lint.isort]
+known-first-party = ["app", "tests"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+docstring-code-format = true
+
+# ---------------------------------------------------------------------------
+# Types
+# ---------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.14"
+strict = true
+warn_unreachable = true
+disallow_any_generics = true
+plugins = ["pydantic.mypy"]
+exclude = ["alembic/versions/"]
+
+[[tool.mypy.overrides]]
+module = ["segno.*"]
+ignore_missing_imports = true
+
+# ---------------------------------------------------------------------------
+# Tests
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+minversion = "9.0"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+addopts = "-q --strict-markers --strict-config"
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["app/__main__.py", "alembic/*"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError", "@overload"]
