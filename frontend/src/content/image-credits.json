@@ -1,0 +1,37 @@
+{
+  "citadelle-de-blaye": {
+    "file": "France - Blaye - fortifications de la citadelle.jpg",
+    "author": "Pinpin",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:France_-_Blaye_-_fortifications_de_la_citadelle.jpg"
+  },
+  "blaye-remparts": {
+    "file": "Vue sur Blaye.jpg",
+    "author": "Cobber17",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Vue_sur_Blaye.jpg"
+  },
+  "estuaire-gironde": {
+    "file": "Blaye-Estuaire.jpg",
+    "author": "Cobber17",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Blaye-Estuaire.jpg"
+  },
+  "carrelet-gironde": {
+    "file": "Estuaire de la Gironde - pêche au carrelet 01.jpg",
+    "author": "Coyau",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Estuaire_de_la_Gironde_-_p%C3%AAche_au_carrelet_01.jpg"
+  },
+  "vignoble-blaye": {
+    "file": "Vignes à Pleine-Selve.JPG",
+    "author": "Cobber17",
+    "licence": "CC BY 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Vignes_%C3%A0_Pleine-Selve.JPG"
+  }
+}

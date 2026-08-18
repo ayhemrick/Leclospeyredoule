@@ -88,7 +88,7 @@ ATTRACTIONS: list[AttractionSeed] = [
         "travel_time_min": 5,
         "website_url": "https://www.tourisme-blaye.com/",
         "image_path": "/images/citadelle-de-blaye.jpg",
-        "image_credit": None,
+        "image_credit": "Photo Pinpin, CC BY-SA 3.0, via Wikimedia Commons",
     },
     {
         "slug": "verrou-vauban",
@@ -124,8 +124,8 @@ ATTRACTIONS: list[AttractionSeed] = [
         "distance_km": Decimal("3"),
         "travel_time_min": 10,
         "website_url": None,
-        "image_path": None,
-        "image_credit": None,
+        "image_path": "/images/blaye-remparts.jpg",
+        "image_credit": "Photo Cobber17, CC BY-SA 3.0, via Wikimedia Commons",
     },
     {
         "slug": "estuaire-de-la-gironde",
@@ -162,8 +162,8 @@ ATTRACTIONS: list[AttractionSeed] = [
         "distance_km": Decimal("2"),
         "travel_time_min": 6,
         "website_url": None,
-        "image_path": "/images/estuaire-gironde.jpg",
-        "image_credit": None,
+        "image_path": "/images/carrelet-gironde.jpg",
+        "image_credit": "Photo Coyau, CC BY-SA 3.0, via Wikimedia Commons",
     },
     {
         "slug": "vignoble-blaye-cotes-de-bordeaux",
@@ -199,7 +199,7 @@ ATTRACTIONS: list[AttractionSeed] = [
         "travel_time_min": 8,
         "website_url": None,
         "image_path": "/images/vignoble-blaye.jpg",
-        "image_credit": None,
+        "image_credit": "Photo Cobber17, CC BY 3.0, via Wikimedia Commons",
     },
     {
         "slug": "route-de-la-corniche",
