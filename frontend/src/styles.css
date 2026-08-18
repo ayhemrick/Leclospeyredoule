@@ -1,0 +1,111 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Design tokens. The palette is drawn from the property itself: limestone,
+   cedar shade, estuary silt and a bordeaux accent. No web fonts are loaded, so
+   the site renders identically offline and on a phone with no signal at the
+   gate.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #16211c;
+  --color-moss: #1f2a24;
+  --color-moss-soft: #33453b;
+  --color-stone: #f6f2ea;
+  --color-parchment: #fbf9f4;
+  --color-sand: #e7dfd0;
+  --color-clay: #b4643c;
+  --color-vine: #6b2d3c;
+  --color-muted: #6b7169;
+
+  --font-display: Iowan Old Style, Palatino Linotype, Palatino, Georgia, serif;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --radius-card: 0.75rem;
+  --shadow-card: 0 1px 2px rgb(22 33 28 / 0.06), 0 8px 24px -12px rgb(22 33 28 / 0.18);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-parchment);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-clay);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply sr-only;
+  }
+
+  .skip-link:focus {
+    @apply not-sr-only fixed top-2 left-2 z-50 rounded bg-white px-4 py-2 font-medium shadow-lg;
+  }
+
+  .prose-house {
+    @apply text-[0.975rem] leading-relaxed text-ink/85;
+  }
+
+  .prose-house p + p {
+    @apply mt-3;
+  }
+
+  .prose-house ul {
+    @apply mt-2 space-y-1.5;
+  }
+
+  .prose-house a {
+    @apply text-vine underline underline-offset-2;
+  }
+
+  .prose-house code {
+    @apply rounded bg-sand px-1.5 py-0.5 font-mono text-[0.85em];
+  }
+}
+
+/* The printed poster: only the QR card survives, at full contrast. */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  body {
+    background: #fff;
+  }
+}

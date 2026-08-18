@@ -40,3 +40,6 @@ desktop.ini
 # --- Local data ---
 pgdata/
 *.log
+
+# Vite local overrides
+frontend/.env.local
