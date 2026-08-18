@@ -5,7 +5,9 @@ test.describe('public site', () => {
     await page.goto('/');
 
     await expect(page.getByRole('heading', { name: 'Clos Peyredoule', level: 1 })).toBeVisible();
-    await expect(page.getByRole('heading', { name: /Blaye Citadel|Citadelle de Blaye/ })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /Blaye Citadel|Citadelle de Blaye/ }),
+    ).toBeVisible();
   });
 
   test('switches between French and English', async ({ page }) => {

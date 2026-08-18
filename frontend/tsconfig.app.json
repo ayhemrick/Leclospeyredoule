@@ -1,19 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2023",
-    "lib": [
-      "ES2023",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
-    "types": [
-      "vite/client",
-      "vitest/globals",
-      "@testing-library/jest-dom"
-    ],
+    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"],
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
@@ -30,12 +22,8 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
