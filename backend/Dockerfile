@@ -3,7 +3,11 @@
 # Clos Peyredoule API. uv installs dependencies from the lockfile into a
 # virtualenv that is copied into a slim runtime image.
 # ---------------------------------------------------------------------------
-FROM ghcr.io/astral-sh/uv:0.11-python3.14-bookworm-slim AS builder
+FROM python:3.14-slim-bookworm AS builder
+
+# uv ships as a standalone binary; copying it in is the pattern Astral documents
+# and keeps the base image official.
+COPY --from=ghcr.io/astral-sh/uv:0.11.28 /uv /uvx /bin/
 
 ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
