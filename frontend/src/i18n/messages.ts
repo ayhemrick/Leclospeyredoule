@@ -143,7 +143,9 @@ export const messages = {
     'admin.access.autoRotate': 'Rotation automatique du code',
     'admin.access.autoRotateHint': 'Le code est remplacé automatiquement à intervalle régulier.',
     'admin.access.interval': 'Intervalle de rotation',
+    'admin.access.intervalUnit': 'Unité de l’intervalle de rotation',
     'admin.access.sessionLength': 'Durée d’accès après un scan',
+    'admin.access.sessionLengthUnit': 'Unité de la durée d’accès',
     'admin.access.revokeOnRotation': 'Déconnecter les visiteurs à chaque rotation',
     'admin.access.revokeOnRotationHint':
       'Par défaut, les hôtes déjà entrés gardent leur accès jusqu’à son terme.',
@@ -363,7 +365,9 @@ export const messages = {
     'admin.access.autoRotate': 'Rotate the code automatically',
     'admin.access.autoRotateHint': 'The code is replaced on a fixed interval.',
     'admin.access.interval': 'Rotation interval',
+    'admin.access.intervalUnit': 'Unit of the rotation interval',
     'admin.access.sessionLength': 'Access granted per scan',
+    'admin.access.sessionLengthUnit': 'Unit of the access window',
     'admin.access.revokeOnRotation': 'Sign visitors out on every rotation',
     'admin.access.revokeOnRotationHint':
       'By default, guests already admitted keep their access until it lapses.',

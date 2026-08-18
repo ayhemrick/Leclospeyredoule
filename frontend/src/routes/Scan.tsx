@@ -5,10 +5,6 @@
  * arrival and then replaces the history entry with `/guide`. The property code
  * therefore does not survive in the back stack, in browser history, or in a
  * screenshot of the address bar taken by the next guest.
- *
- * Success is read from the access-status query rather than from the mutation:
- * the query is the source of truth, and it survives the remount that React's
- * strict mode performs in development.
  */
 
 import { Link, useNavigate, useParams } from '@tanstack/react-router';
@@ -17,27 +13,16 @@ import { useEffect, useRef } from 'react';
 import { Button, Card } from '@/components/ui';
 import { useLocale } from '@/i18n';
 import { ApiError } from '@/lib/api';
-import { useAccessStatus, useRedeemCode } from '@/lib/queries';
-
-/** Codes already sent during this page session, so a remount does not rescan. */
-const attempted = new Set<string>();
+import { useRedeemCode } from '@/lib/queries';
 
 export function ScanPage() {
   const { t } = useLocale();
   const { code } = useParams({ from: '/a/$code' });
   const navigate = useNavigate();
-  const redeem = useRedeemCode();
-  const status = useAccessStatus();
-
-  const { mutate, isError, error, reset } = redeem;
-  const granted = status.data?.granted === true;
+  const redemption = useRedeemCode(code);
   const redirected = useRef(false);
 
-  useEffect(() => {
-    if (attempted.has(code)) return;
-    attempted.add(code);
-    mutate(code);
-  }, [code, mutate]);
+  const granted = redemption.data?.granted === true;
 
   useEffect(() => {
     if (!granted || redirected.current) return;
@@ -45,7 +30,8 @@ export function ScanPage() {
     void navigate({ to: '/guide', replace: true });
   }, [granted, navigate]);
 
-  const failureMessage = error instanceof ApiError ? error.message : t('common.error');
+  const failureMessage =
+    redemption.error instanceof ApiError ? redemption.error.message : t('common.error');
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col justify-center px-4 py-20 sm:px-6">
@@ -63,7 +49,7 @@ export function ScanPage() {
               </Link>
             </div>
           </>
-        ) : isError ? (
+        ) : redemption.isError ? (
           <>
             <p className="text-3xl" aria-hidden="true">
               ⚠️
@@ -74,9 +60,7 @@ export function ScanPage() {
               <Button
                 variant="secondary"
                 onClick={() => {
-                  reset();
-                  attempted.delete(code);
-                  mutate(code);
+                  void redemption.refetch();
                 }}
               >
                 {t('scan.retry')}

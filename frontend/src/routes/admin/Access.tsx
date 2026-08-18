@@ -143,7 +143,7 @@ function PolicyForm({ policy, canEdit }: { policy: AccessPolicy; canEdit: boolea
               className="w-28"
             />
             <select
-              aria-label={t('admin.access.interval')}
+              aria-label={t('admin.access.intervalUnit')}
               value={rotationUnit}
               disabled={!autoRotate}
               onChange={(event) => {
@@ -172,7 +172,7 @@ function PolicyForm({ policy, canEdit }: { policy: AccessPolicy; canEdit: boolea
               className="w-28"
             />
             <select
-              aria-label={t('admin.access.sessionLength')}
+              aria-label={t('admin.access.sessionLengthUnit')}
               value={sessionUnit}
               onChange={(event) => {
                 setSessionUnit(event.target.value as Unit);

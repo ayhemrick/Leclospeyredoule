@@ -31,6 +31,7 @@ export const keys = {
   publicGuide: () => ['guide', 'public'] as const,
   guestGuide: () => ['guide', 'guest'] as const,
   accessStatus: () => ['access', 'status'] as const,
+  redeem: (code: string) => ['access', 'redeem', code] as const,
   me: () => ['admin', 'me'] as const,
   accessCode: () => ['admin', 'access', 'code'] as const,
   accessPolicy: () => ['admin', 'access', 'policy'] as const,
@@ -84,14 +85,30 @@ export function useGuestGuide(enabled: boolean): UseQueryResult<GuideSection[]> 
   });
 }
 
-export function useRedeemCode(): UseMutationResult<AccessStatus, Error, string> {
+/**
+ * Redeem a scanned code exactly once per page session.
+ *
+ * This is modelled as a query rather than a mutation on purpose: the result
+ * then lives in the cache, so it survives the remounts React performs in strict
+ * mode and any re-render of the scan page, instead of silently reverting to a
+ * pending state that never resolves.
+ */
+export function useRedeemCode(code: string): UseQueryResult<AccessStatus> {
   const client = useQueryClient();
-  return useMutation({
-    mutationFn: (code: string) => api.post<AccessStatus>('/api/v1/access/redeem', { code }),
-    onSuccess: (status) => {
+  return useQuery({
+    queryKey: keys.redeem(code),
+    queryFn: async () => {
+      const status = await api.post<AccessStatus>('/api/v1/access/redeem', { code });
       client.setQueryData(keys.accessStatus(), status);
-      void client.invalidateQueries({ queryKey: keys.guestGuide() });
+      await client.invalidateQueries({ queryKey: keys.guestGuide() });
+      return status;
     },
+    retry: false,
+    staleTime: Infinity,
+    gcTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 }
 
